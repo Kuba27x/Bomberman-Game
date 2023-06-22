@@ -91,7 +91,7 @@ void GameState::updatePlayerInput(const float& dt)
 		player->move(0.f, -1.f, dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(keybinds.at("MOVE_DOWN"))))
 		player->move(0.f, 1.f, dt);
-	//drugi sposob, bez uzycia mapy keybinds
+	//Without keybinds for second player
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		player2->move(-1.f, 0.f, dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))

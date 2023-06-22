@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "MovementComponent.h"
+
 //Init functions
 void Player::initVariables()
 {
@@ -35,10 +36,10 @@ Player::~Player()
 //Functions
 void Player::update(const float& dt, const float windowWidth, const float windowHeight)
 {
-    // Zaktualizuj komponent ruchu przed sprawdzeniem granic
+    // Update movement component before checking borders
     movementComponent->update(dt);
 
-    // Sprawdz granice
+    // check borders
     if (sprite.getPosition().x < 0) setPosition(0, sprite.getPosition().y);
     if (sprite.getPosition().y < 0) setPosition(sprite.getPosition().x, 0);
     if (sprite.getPosition().x + sprite.getGlobalBounds().width > windowWidth)
@@ -46,7 +47,7 @@ void Player::update(const float& dt, const float windowWidth, const float window
     if (sprite.getPosition().y + sprite.getGlobalBounds().height > windowHeight)
         setPosition(sprite.getPosition().x, windowHeight - sprite.getGlobalBounds().height);
 
-    // Sprawdzanie kolizji z innymi obiektami
+    // check collision with other objects
     for (const sf::FloatRect& object : collisionObjects)
     {
         if (checkCollisionWithObject(object))
@@ -80,3 +81,4 @@ void Player::addCollisionObject(const sf::FloatRect& object)
 {
     collisionObjects.push_back(object);
 }
+
