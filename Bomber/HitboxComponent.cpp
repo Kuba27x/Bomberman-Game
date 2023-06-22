@@ -30,3 +30,8 @@ void HitboxComponent::render(sf::RenderTarget& target)
 {
 	target.draw(hitbox);
 }
+
+sf::FloatRect HitboxComponent::getGlobalBounds() const
+{
+	return hitbox.getGlobalBounds();
+}

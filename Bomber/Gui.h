@@ -1,7 +1,7 @@
 #ifndef GUI_H
 #define GUI_H
 
-enum button_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
+enum button_states { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
 
 namespace gui
 {
@@ -29,6 +29,8 @@ namespace gui
 		sf::Color outlineHoverColor;
 		sf::Color outlineActiveColor;
 
+
+
 	public:
 		Button(float x, float y, float width, float height, sf::Font* font, std::string text,
 			unsigned character_size, sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
@@ -44,6 +46,7 @@ namespace gui
 		//Modifiers
 		void setText(const std::string text);
 		void setId(const short unsigned id);
+		bool wasPressedLastFrame;
 
 		//Functions
 		void update(const sf::Vector2f& mousePos);
@@ -58,9 +61,9 @@ namespace gui
 		gui::Button* activeElement;
 		std::vector<gui::Button*> list;
 		bool showList;
-		
+
 	public:
-		DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index=0);
+		DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index = 0);
 		~DropDownList();
 
 		const unsigned short& getActiveElementId() const;
@@ -68,6 +71,40 @@ namespace gui
 		const bool getKeyTime();
 		void updateKeyTime(const float& dt);
 		void update(const sf::Vector2f& mousePos, const float& dt);
+		void render(sf::RenderTarget& target);
+	};
+
+	class TextField
+	{
+	private:
+		short unsigned textFieldState;
+		bool active;
+
+		sf::RectangleShape shape;
+		sf::Font* font;
+		sf::Text text;
+
+		sf::Color idleColor;
+		sf::Color hoverColor;
+		sf::Color activeColor;
+
+	public:
+
+		bool wasPressedLastFrame;
+		TextField(float x, float y, float width, float height, sf::Font* font, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
+		virtual ~TextField();
+
+		//Accessors
+		const bool isActive() const;
+		const std::string getText() const;
+
+		//Modifiers
+		void setActive(bool active);
+
+		//Functions
+		void addCharacter(const char character);
+		void removeCharacter();
+		void update(const sf::Vector2f& mousePos);
 		void render(sf::RenderTarget& target);
 	};
 }

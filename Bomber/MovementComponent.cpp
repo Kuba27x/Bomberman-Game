@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "MovementComponent.h"
 
-MovementComponent::MovementComponent(sf::Sprite &sprite, float maxVelocity, float acceleration, float deceleration) 
-	: sprite(sprite), 
+MovementComponent::MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration)
+	: sprite(sprite),
 	maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration)
 {
 	this->maxVelocity = maxVelocity;
@@ -62,8 +62,12 @@ const bool MovementComponent::getState(const short unsigned state) const
 	return false;
 }
 
-void MovementComponent::move(const float dir_x, const float dir_y, const float &dt)
+void MovementComponent::move(const float dir_x, const float dir_y, const float& dt)
 {
+
+	// Store direction of movement
+	this->lastMoveDir = sf::Vector2f(dir_x, dir_y);
+
 	//Acceleration
 	this->velocity.x += acceleration * dir_x;
 
@@ -84,7 +88,7 @@ void MovementComponent::update(const float& dt)
 		if (velocity.x < 0.f)
 			velocity.x = 0.f;
 	}
-	else if(velocity.x < 0.f)
+	else if (velocity.x < 0.f)
 	{
 		//Max velocity check x neg
 		if (velocity.x < -maxVelocity)
@@ -121,4 +125,10 @@ void MovementComponent::update(const float& dt)
 
 	//Actual move
 	sprite.move(velocity * dt); //Use velocity
+}
+
+void MovementComponent::stopVelocity()
+{
+	this->velocity.x = 0.f;
+	this->velocity.y = 0.f;
 }

@@ -15,6 +15,7 @@ gui::Button::Button(float x, float y, float width, float height, sf::Font* font,
 	this->shape.setFillColor(idle_color);
 	shape.setOutlineThickness(5.f);
 	shape.setOutlineColor(outline_idle_color);
+	wasPressedLastFrame = false;
 
 	this->font = font;
 	this->text.setFont(*this->font);
@@ -90,8 +91,17 @@ void gui::Button::update(const sf::Vector2f& mousePos)
 		//Pressed
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			buttonState = BTN_ACTIVE;
+			if (!wasPressedLastFrame)
+			{
+				buttonState = BTN_ACTIVE;
+			}
+			wasPressedLastFrame = true;
 		}
+		else
+		{
+			wasPressedLastFrame = false;
+		}
+
 	}
 
 	switch (buttonState)
@@ -127,7 +137,7 @@ void gui::Button::render(sf::RenderTarget& target)
 	target.draw(text);
 }
 
-gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[],unsigned nrOfElements, unsigned default_index)
+gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index)
 	: font(font), showList(false), keyTimeMax(1.f), keyTime(0.f)
 {
 	//unsigned nrOfElements = sizeof(list) / sizeof(std::string);
@@ -139,7 +149,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, sf:
 
 	for (size_t i = 0; i < nrOfElements; i++)
 	{
-		this->list.push_back(new gui::Button(x, y + ((i+1) * height), width, height, &this->font, list[i], 60,
+		this->list.push_back(new gui::Button(x, y + ((i + 1) * height), width, height, &this->font, list[i], 60,
 			sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(25, 25, 25, 50),
 			sf::Color(80, 80, 80, 200), sf::Color(160, 160, 160, 200), sf::Color(25, 25, 25, 200),
 			sf::Color(255, 255, 255, 0), sf::Color(255, 255, 255, 0), sf::Color(25, 25, 25, 0), i));
@@ -170,7 +180,7 @@ const bool gui::DropDownList::getKeyTime()
 	return false;
 }
 
-void gui::DropDownList::updateKeyTime(const float &dt)
+void gui::DropDownList::updateKeyTime(const float& dt)
 {
 	if (keyTime < keyTimeMax)
 		keyTime += 10.f * dt;
@@ -217,4 +227,118 @@ void gui::DropDownList::render(sf::RenderTarget& target)
 			i->render(target);
 		}
 	}
+}
+
+//TextField
+
+gui::TextField::TextField(float x, float y, float width, float height, sf::Font* font, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
+	: textFieldState(BTN_IDLE), active(false)
+{
+	shape.setPosition(sf::Vector2f(x, y));
+	shape.setSize(sf::Vector2f(width, height));
+	shape.setFillColor(idleColor);
+	shape.setOutlineThickness(2.f);
+	shape.setOutlineColor(sf::Color::White);
+
+	this->font = font;
+	text.setFont(*this->font);
+	text.setPosition(shape.getPosition().x + 5.f, shape.getPosition().y + 5.f);
+	text.setCharacterSize(static_cast<unsigned>(height) - 10);
+	text.setFillColor(sf::Color::Black);
+
+	this->idleColor = idleColor;
+	this->hoverColor = hoverColor;
+	this->activeColor = activeColor;
+}
+
+gui::TextField::~TextField()
+{
+	//...
+}
+
+//Accessors
+const bool gui::TextField::isActive() const
+{
+	return active;
+}
+
+const std::string gui::TextField::getText() const
+{
+	return text.getString();
+}
+
+//Modifiers
+void gui::TextField::setActive(bool active)
+{
+	this->active = active;
+}
+
+//Functions
+void gui::TextField::addCharacter(const char character)
+{
+	// Only accept digits and the dot
+	if (isdigit(character) || character == '.')
+	{
+		sf::String str = text.getString();
+		str += character;
+		text.setString(str);
+	}
+}
+
+void gui::TextField::removeCharacter()
+{
+	sf::String str = text.getString();
+	str = str.substring(0, str.getSize() - 1);
+	text.setString(str);
+}
+
+void gui::TextField::update(const sf::Vector2f& mousePos)
+{
+	//Idle state
+	textFieldState = BTN_IDLE;
+
+	//Hover state
+	if (shape.getGlobalBounds().contains(mousePos))
+	{
+		textFieldState = BTN_HOVER;
+
+		//Pressed state
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			textFieldState = BTN_ACTIVE;
+			setActive(true);
+		}
+	}
+	else if (active && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		setActive(false);
+	}
+
+	//Change color based on state
+	switch (textFieldState)
+	{
+	case BTN_IDLE:
+		shape.setFillColor(idleColor);
+		break;
+
+	case BTN_HOVER:
+		shape.setFillColor(hoverColor);
+		break;
+
+	case BTN_ACTIVE:
+		shape.setFillColor(activeColor);
+		break;
+
+	default:
+		shape.setFillColor(sf::Color::Red); //Error color
+		break;
+	}
+}
+
+
+
+void gui::TextField::render(sf::RenderTarget& target)
+{
+	target.draw(shape);
+	target.draw(text);
 }

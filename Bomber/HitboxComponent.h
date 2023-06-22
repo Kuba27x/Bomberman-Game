@@ -14,7 +14,7 @@ public:
 
 	//Functions
 	bool checkIntersect(const sf::FloatRect& frect);
-
+	sf::FloatRect getGlobalBounds() const;
 	void update();
 	void render(sf::RenderTarget& target);
 };

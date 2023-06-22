@@ -113,7 +113,6 @@ void SettingsState::updateGui(const float& dt)
 	//Apply settings
 	if (buttons["APPLY"]->isPressed())
 	{
-		//TEST REMOVE LATER
 		window->create(modes[dropDownLists["RESOLUTION"]->getActiveElementId()], "test", sf::Style::Default);
 	}
 

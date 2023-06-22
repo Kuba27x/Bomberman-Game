@@ -81,6 +81,15 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="NewGameState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PreGameState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -129,6 +138,15 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="NewGameState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PreGameState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
