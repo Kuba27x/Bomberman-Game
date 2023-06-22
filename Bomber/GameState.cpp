@@ -47,7 +47,6 @@ void GameState::initObstacles()
 	player2->addCollisionObject(wall1->getHitboxComponent()->getGlobalBounds());
 }
 
-
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {

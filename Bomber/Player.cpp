@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-
+#include "MovementComponent.h"
 //Init functions
 void Player::initVariables()
 {
@@ -52,7 +52,6 @@ void Player::update(const float& dt, const float windowWidth, const float window
         if (checkCollisionWithObject(object))
         {
             movementComponent->stopVelocity();
-            break;
         }
     }
 

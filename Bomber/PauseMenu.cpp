@@ -34,8 +34,6 @@ std::map<std::string, gui::Button *>& PauseMenu::getButtons()
 	return buttons;
 }
 
-
-
 //Functions
 const bool PauseMenu::isButtonPressed(const std::string key)
 {

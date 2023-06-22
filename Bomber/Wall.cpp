@@ -31,7 +31,7 @@ Wall::~Wall()
 //Functions
 void Wall::update(const float& dt, const float windowWidth, const float windowHeight)
 {
-    // Zaktualizuj komponent ruchu przed sprawdzeniem granic
+    // update movement component before checking borders
     movementComponent->update(dt);
 
     if (sprite.getPosition().x < 0) setPosition(0, sprite.getPosition().y);
