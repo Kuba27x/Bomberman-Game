@@ -45,6 +45,10 @@ void Game::initWindow()
 
 	window->setFramerateLimit(fps_limit);
 	window->setVerticalSyncEnabled(vertical_sync_enabled);
+
+	sf::Image icon;
+	icon.loadFromFile("Resources/Images/Game_Icon.png");
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 
 void Game::initKeys()
