@@ -6,7 +6,7 @@ void GameState::initTextures()
 {
 	textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Player_Spritesheet/Player_Animation_Sheet.png");
 	textures["PLAYER2_SHEET"].loadFromFile("Resources/Images/Player_Spritesheet/Player2_Animation_Sheet.png");
-	textures["WALL_SHEET"].loadFromFile("Resources/Images/Player_Spritesheet/Wall.png");
+	textures["WALL_SHEET"].loadFromFile("Resources/Images/Wall.png");
 }
 
 void GameState::initPauseMenu()

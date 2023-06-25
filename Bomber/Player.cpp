@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "MovementComponent.h"
 
 //Init functions
 void Player::initVariables()
@@ -34,12 +33,16 @@ Player::~Player()
 }
 
 //Functions
+
 void Player::update(const float& dt, const float windowWidth, const float windowHeight)
 {
-    // Update movement component before checking borders
+    // Update movement component, check borders
     movementComponent->update(dt);
 
-    // check borders
+    // Save position
+    sf::Vector2f lastPosition = sprite.getPosition();
+
+    // Check borders
     if (sprite.getPosition().x < 0) setPosition(0, sprite.getPosition().y);
     if (sprite.getPosition().y < 0) setPosition(sprite.getPosition().x, 0);
     if (sprite.getPosition().x + sprite.getGlobalBounds().width > windowWidth)
@@ -47,16 +50,40 @@ void Player::update(const float& dt, const float windowWidth, const float window
     if (sprite.getPosition().y + sprite.getGlobalBounds().height > windowHeight)
         setPosition(sprite.getPosition().x, windowHeight - sprite.getGlobalBounds().height);
 
-    // check collision with other objects
+    // Check collision
     for (const sf::FloatRect& object : collisionObjects)
     {
         if (checkCollisionWithObject(object))
         {
-            movementComponent->stopVelocity();
+            sf::Vector2f push;
+            sf::FloatRect intersection;
+            sprite.getGlobalBounds().intersects(object, intersection); // get the intersection between player and object
+
+            float intersectionWidth = intersection.width;
+            float intersectionHeight = intersection.height;
+
+            if (intersectionWidth > intersectionHeight)
+            {
+                if (sprite.getPosition().y > object.top)
+                    push.y = intersectionHeight;
+                else
+                    push.y = -intersectionHeight;
+            }
+            else
+            {
+                if (sprite.getPosition().x > object.left)
+                    push.x = intersectionWidth;
+                else
+                    push.x = -intersectionWidth;
+            }
+
+            // If detected back to last position
+            sprite.setPosition(lastPosition + push);
+            movementComponent->stopVelocity(dt);
+            break;
         }
     }
 
-    movementComponent->update(dt);
 
     if (movementComponent->getState(IDLE))
         animationComponent->play("IDLE", dt);
@@ -72,6 +99,7 @@ void Player::update(const float& dt, const float windowWidth, const float window
     hitboxComponent->update();
 }
 
+
 bool Player::checkCollisionWithObject(const sf::FloatRect& object)
 {
     return hitboxComponent->checkIntersect(object);
@@ -81,4 +109,3 @@ void Player::addCollisionObject(const sf::FloatRect& object)
 {
     collisionObjects.push_back(object);
 }
-
