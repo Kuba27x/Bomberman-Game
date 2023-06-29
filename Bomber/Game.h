@@ -16,12 +16,7 @@ private:
 	sf::Text playerText2;
 
 	//PlayerGUI
-	sf::RectangleShape playerHPbar;
-	sf::RectangleShape playerHPbarBack;
-
-	sf::RectangleShape playerHPbar2;
-	sf::RectangleShape playerHPbarBack2;
-
+	
 	//World
 	sf::Texture WorldBackgroundTexture;
 	sf::Sprite WorldBackground;

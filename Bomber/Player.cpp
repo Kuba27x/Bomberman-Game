@@ -4,7 +4,7 @@
 //Init functions
 void Player::initVariables()
 {
-
+    avaibleBombs = 1;
 }
 
 void Player::initComponents()
@@ -51,35 +51,41 @@ void Player::update(const float& dt, const float windowWidth, const float window
         setPosition(sprite.getPosition().x, windowHeight - sprite.getGlobalBounds().height);
 
     // Check collision
-    for (const sf::FloatRect& object : collisionObjects)
+    for (const CollisionObject& object : collisionObjects)
     {
         if (checkCollisionWithObject(object))
         {
             sf::Vector2f push;
             sf::FloatRect intersection;
-            sprite.getGlobalBounds().intersects(object, intersection); // get the intersection between player and object
+            sprite.getGlobalBounds().intersects(object.rectangle, intersection); 
 
             float intersectionWidth = intersection.width;
             float intersectionHeight = intersection.height;
 
             if (intersectionWidth > intersectionHeight)
             {
-                if (sprite.getPosition().y > object.top)
+                if (sprite.getPosition().y > object.rectangle.top)
                     push.y = intersectionHeight;
                 else
                     push.y = -intersectionHeight;
             }
             else
             {
-                if (sprite.getPosition().x > object.left)
+                if (sprite.getPosition().x > object.rectangle.left)
                     push.x = intersectionWidth;
                 else
                     push.x = -intersectionWidth;
             }
 
-            // If detected back to last position
-            sprite.setPosition(lastPosition + push);
+            sprite.setPosition(lastPosition + push);//Back on collision
             movementComponent->stopVelocity(dt);
+
+            //If harmful obj, end game
+            if (object.entity && object.entity->harmful)
+            {
+                std::exit(0);
+            }
+
             break;
         }
     }
@@ -100,12 +106,30 @@ void Player::update(const float& dt, const float windowWidth, const float window
 }
 
 
-bool Player::checkCollisionWithObject(const sf::FloatRect& object)
+bool Player::checkCollisionWithObject(const CollisionObject& object)
 {
-    return hitboxComponent->checkIntersect(object);
+    return hitboxComponent->checkIntersect(object.rectangle);
 }
 
-void Player::addCollisionObject(const sf::FloatRect& object)
+void Player::addCollisionObject(const sf::FloatRect& object, Entity* entity = nullptr)
 {
-    collisionObjects.push_back(object);
+    CollisionObject collisionObject;
+    collisionObject.rectangle = object;
+    collisionObject.entity = entity;
+    collisionObjects.push_back(collisionObject);
+}
+
+void Player::removeCollisionObject(Entity* entity)
+{
+    for (auto it = collisionObjects.begin(); it != collisionObjects.end(); )
+    {
+        if (it->entity == entity)
+        {
+            it = collisionObjects.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }

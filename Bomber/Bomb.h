@@ -1,6 +1,8 @@
 #ifndef BOMB_H
 #define BOMB_H
+#include "stdafx.h"
 #include "Entity.h"
+#include "Player.h"
 
 class Bomb : public Entity
 {
@@ -12,10 +14,28 @@ private:
 	void initComponents();
 
 public:
-	Bomb(float x, float y, sf::Texture& texture_sheet);
+	Bomb(float x, float y, float hitbox_width, float hitbox_height, sf::Texture& texture_sheet, Player* owner);
 	virtual ~Bomb();
-	Bomb();
 
-	virtual void update(const float& dt);
+	//Variables
+	Player* bombOwner;
+	int freePass;
+	int safe;
+	int lifeTime;
+	bool isIncrementingOwner;
+
+	//Functions
+	virtual void update(const float& dt, const float windowWidth, const float windowHeight);
 };
+
+
+class Explosion : public Bomb
+{
+public:
+	Explosion(float x, float y, float width, float height, sf::Texture& texture_sheet, Player* owner, int lifeTime, int orientation);
+	void update(const float& dt, const float windowWidth, const float windowHeight) override;
+};
+
+
+
 #endif

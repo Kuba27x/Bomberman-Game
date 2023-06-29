@@ -9,10 +9,8 @@ class Entity
 {
 private:
 	void initVariables();
-protected:
-	
-	sf::Sprite sprite;
 
+protected:
 	HitboxComponent* hitboxComponent;
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
@@ -20,6 +18,10 @@ protected:
 public:
 	Entity();
 	virtual ~Entity();
+
+	sf::Sprite sprite;
+	bool destroyable;
+	bool harmful;
 
 	//Comp functions
 	void setTexture(sf::Texture& texture); 
@@ -35,6 +37,8 @@ public:
 	virtual void update(const float& dt);
 	virtual void render(sf::RenderTarget& target);
 
+	HitboxComponent* getHitboxComponent() const;
+	sf::FloatRect getGlobalBounds() const;
 };
 
 #endif // !ENTITY_H

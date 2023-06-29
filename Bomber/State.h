@@ -2,6 +2,8 @@
 #define STATE_H
 
 #include "Player.h"
+#include "Wall.h"
+#include "Bomb.h"
 
 class State
 {
@@ -39,9 +41,9 @@ public:
 	void unpauseState();
 	virtual void updateMousePositions();
 	virtual void updateKeyTime(const float& dt);
-	virtual void updateInput(const float & dt) = 0;
+	virtual void updateInput(const float& dt) = 0;
 	virtual void update(const float& dt) = 0;
-	virtual void render(sf::RenderTarget *target = nullptr) = 0; 
+	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
 };
 

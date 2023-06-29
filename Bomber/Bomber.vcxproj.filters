@@ -22,9 +22,6 @@
     <Filter Include="Components">
       <UniqueIdentifier>{33e156e8-6ba4-483b-a27b-cce5dfaa4f97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tile">
-      <UniqueIdentifier>{527fb452-8a35-4332-9d47-a386715f72cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{cd5bd724-5b69-4bb7-a56e-e6072c83cf9c}</UniqueIdentifier>
     </Filter>
@@ -65,9 +62,6 @@
     </ClCompile>
     <ClCompile Include="HitboxComponent.cpp">
       <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Tile</Filter>
     </ClCompile>
     <ClCompile Include="PauseMenu.cpp">
       <Filter>GUI</Filter>
@@ -124,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="HitboxComponent.h">
       <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Tile</Filter>
     </ClInclude>
     <ClInclude Include="PauseMenu.h">
       <Filter>GUI</Filter>

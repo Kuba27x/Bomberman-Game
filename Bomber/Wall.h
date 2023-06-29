@@ -6,11 +6,8 @@
 class Wall : public Entity
 {
 private:
-	//Variables
 
-	//Init functions
 	void initVariables();
-	void initComponents();
 
 public:
 	Wall(float x, float y, sf::Texture& texture_sheet);
@@ -18,8 +15,6 @@ public:
 
 	//Functions
 	void update(const float& dt, const float windowWidth, const float windowHeight);
-	sf::FloatRect getGlobalBounds() const;
-	HitboxComponent* getHitboxComponent() const;
 };
 
 #endif

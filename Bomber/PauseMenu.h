@@ -14,7 +14,7 @@ private:
 
 	std::map<std::string, gui::Button*> buttons;
 
-	
+
 public:
 	PauseMenu(sf::RenderWindow& window, sf::Font& font);
 	virtual ~PauseMenu();

@@ -18,6 +18,9 @@
 #include <sstream>
 #include <fstream>
 #include <cmath>
+#include <thread>
+#include <mutex>
+#include <future>
 
 //SFML
 #include <SFML/Graphics.hpp>

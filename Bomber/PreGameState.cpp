@@ -67,7 +67,7 @@ void PreGameState::initText()
 	preGameText.setFillColor(sf::Color(25, 25, 25, 200));
 
 	preGameText.setString(
-		"Adres serwera \n\n\nNumer portu \n\n\n"
+		"Adress \n\n\nPort number \n\n\n"
 	);
 }
 

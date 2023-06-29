@@ -17,12 +17,20 @@ public:
     Player(float x, float y, sf::Texture& texture_sheet);
     virtual ~Player();
 
+    struct CollisionObject 
+    {
+        sf::FloatRect rectangle;
+        Entity* entity = nullptr;
+    };
+
+    int avaibleBombs;
+
     //Functions
     void update(const float& dt, const float windowWidth, const float windowHeight);
-    bool checkCollisionWithObject(const sf::FloatRect& object);
-    void addCollisionObject(const sf::FloatRect& object);
-
-    std::vector<sf::FloatRect> collisionObjects;
+    bool checkCollisionWithObject(const CollisionObject& object);
+    void addCollisionObject(const sf::FloatRect& object, Entity* entity);
+    void removeCollisionObject(Entity* entity);
+    std::vector<CollisionObject> collisionObjects;
 };
 
 #endif
