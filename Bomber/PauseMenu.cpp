@@ -29,7 +29,7 @@ PauseMenu::~PauseMenu()
 }
 
 //Accessor
-std::map<std::string, gui::Button *>& PauseMenu::getButtons()
+std::map<std::string, gui::Button*>& PauseMenu::getButtons()
 {
 	return buttons;
 }
@@ -71,4 +71,3 @@ void PauseMenu::render(sf::RenderTarget& target)
 
 	target.draw(menuText);
 }
-

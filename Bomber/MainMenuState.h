@@ -4,7 +4,11 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
+#include "NewGameState.h"
+#include "PreGameState.h"
 #include "Gui.h"
+#include "ServerConnection.h"
+
 
 class MainMenuState : public State
 {
@@ -14,7 +18,7 @@ private:
 	sf::RectangleShape background;
 	sf::Font font;
 
-	std::map<std::string, gui::Button *>buttons;
+	std::map<std::string, gui::Button*>buttons;
 
 	//Functions
 	void initVariables();

@@ -7,7 +7,7 @@ class EditorState : public State
 {
 private:
 	//Variables
-	
+
 	sf::Font font;
 
 	std::map<std::string, gui::Button*>buttons;

@@ -3,7 +3,7 @@
 
 State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 {
-	this->window = window; 
+	this->window = window;
 	this->supportedKeys = supportedKeys;
 	this->states = states;
 	quit = false;
@@ -56,7 +56,7 @@ const bool& State::getQuit() const
 const bool State::getKeyTime()
 {
 	if (keyTime >= keyTimeMax)
-	{	
+	{
 		keyTime = 0.f;
 		return true;
 	}

@@ -162,6 +162,7 @@
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bomber.cpp" />
+    <ClCompile Include="CollisionObject.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PreGameState.cpp" />
+    <ClCompile Include="ServerConnection.cpp" />
     <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +189,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="CollisionObject.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="EditorState.h" />
     <ClInclude Include="Entity.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PreGameState.h" />
+    <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="SettingsState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />

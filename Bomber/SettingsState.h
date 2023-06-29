@@ -12,8 +12,8 @@ private:
 	sf::RectangleShape background;
 	sf::Font font;
 
-	std::map<std::string, gui::Button *> buttons;
-	std::map<std::string, gui::DropDownList *> dropDownLists;
+	std::map<std::string, gui::Button*> buttons;
+	std::map<std::string, gui::DropDownList*> dropDownLists;
 
 	sf::Text optionsText;
 
@@ -31,9 +31,9 @@ public:
 	SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~SettingsState();
 
-//Accessors
+	//Accessors
 
-//Functions
+	//Functions
 	void updateInput(const float& dt);
 	void updateGui(const float& dt);
 	void update(const float& dt);

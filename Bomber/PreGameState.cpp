@@ -111,16 +111,16 @@ void PreGameState::updateInput(const float& dt)
 			{
 				if (serverAddressField->isActive())
 				{
-					if (event.text.unicode == '\b') // handle backspace explicitly
+					if (event.text.unicode == '\b')
 						serverAddressField->removeCharacter();
 					else
 						serverAddressField->addCharacter(static_cast<char>(event.text.unicode));
 				}
 				else if (serverPortField->isActive())
 				{
-					if (event.text.unicode == '\b') // handle backspace explicitly
+					if (event.text.unicode == '\b')
 						serverPortField->removeCharacter();
-					else if (isdigit(static_cast<char>(event.text.unicode))) // only allow digits in port field
+					else if (isdigit(static_cast<char>(event.text.unicode)))
 						serverPortField->addCharacter(static_cast<char>(event.text.unicode));
 				}
 			}

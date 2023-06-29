@@ -1,11 +1,11 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Bomb.h"
 #include "Player.h"
 
 
 void Bomb::initVariables()
 {
-    freePass = 300;
+    freePass = 200;
     safe = 600;
     lifeTime = 650;
 }
@@ -15,6 +15,8 @@ Bomb::Bomb(float x, float y, float hitbox_width, float hitbox_height, sf::Textur
     initVariables();
     destroyable = false;
     harmful = false;
+    type = 3;
+    killed = false;
     setPosition(x, y);
     bombOwner = owner;
     createHitboxComponent(sprite, 0.f, 0.f, hitbox_width, hitbox_height);
@@ -80,5 +82,29 @@ void Explosion::update(const float& dt, const float windowWidth, const float win
     if (sprite.getPosition().y + sprite.getGlobalBounds().height > windowHeight)
         setPosition(sprite.getPosition().x, windowHeight - sprite.getGlobalBounds().height);
 
+    // Save position
+    sf::Vector2f lastPosition = sprite.getPosition();
+
+    // Check collision
+    for (auto it = bombOwner->collisionObjects->begin(); it != bombOwner->collisionObjects->end(); ++it)
+    {
+        CollisionObject& object = *it;
+
+        if (checkCollisionWithObject(object))
+        {
+            if (object.entity)
+            {
+                object.entity->killed = true;  // Change the dead status
+            }
+
+            break;
+        }
+    }
+
     hitboxComponent->update();
+}
+
+bool Explosion::checkCollisionWithObject(const CollisionObject& object)
+{
+    return hitboxComponent->checkIntersect(object.rectangle);
 }

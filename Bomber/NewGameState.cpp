@@ -20,7 +20,7 @@ NewGameState::~NewGameState()
 
 void NewGameState::updateInput(const float& dt)
 {
-	
+
 }
 
 void NewGameState::updateButtons()
@@ -74,7 +74,7 @@ void NewGameState::initBackground()
 
 void NewGameState::initFonts()
 {
-	
+
 }
 
 void NewGameState::initButtons()

@@ -6,7 +6,7 @@ class Game
 {
 private:
 	//Variables
-	sf::RenderWindow *window;
+	sf::RenderWindow* window;
 	sf::Event sfEvent;
 	std::vector<sf::VideoMode> videoModes;
 	sf::ContextSettings window_settings;
@@ -16,17 +16,17 @@ private:
 	sf::Text playerText2;
 
 	//PlayerGUI
-	
+
 	//World
 	sf::Texture WorldBackgroundTexture;
 	sf::Sprite WorldBackground;
 
 	bool fullscreen;
 
-	sf::Clock dtClock; 
+	sf::Clock dtClock;
 	float dt;
 
-	std::stack<State*> states; 
+	std::stack<State*> states;
 
 	std::map<std::string, int> supportedKeys;
 
@@ -47,7 +47,7 @@ public:
 	void endApplication();
 	//Update
 	void updateDT();
-	void updateSFMLEvents(); 
+	void updateSFMLEvents();
 	void update();
 	void updateGUI();
 
@@ -59,4 +59,3 @@ public:
 };
 
 #endif // !GAME_H
-

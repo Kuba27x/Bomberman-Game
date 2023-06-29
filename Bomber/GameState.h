@@ -3,6 +3,8 @@
 
 #include "State.h"
 #include "PauseMenu.h"
+#include "Entity.h"
+#include "CollisionObject.h"
 
 class GameState : public State
 {
@@ -33,6 +35,7 @@ public:
 
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~GameState();
+	std::vector<CollisionObject> collisionObjects;
 
 	//Functions
 	void updateInput(const float& dt);
@@ -41,11 +44,17 @@ public:
 	void update(const float& dt);
 	void render(sf::RenderTarget* target = nullptr);
 	void endGame();
+
+	void addCollisionObject(const sf::FloatRect& object, Entity* entity);
+	void removeCollisionObject(Entity* entity);
+
 	void addBomb(float x, float y, Player* owner);
-	void addWall(float x, float y);
 	std::vector<Bomb*>::iterator removeBomb(Bomb* bomb);
+	void addWall(float x, float y);
+	std::vector<Wall*>::iterator removeWall(Wall* wall);
 	void addExplosion(Explosion* explosion);
 	std::vector<Explosion*>::iterator removeExplosion(Explosion* explosion);
+
 
 };
 

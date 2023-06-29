@@ -22,9 +22,10 @@ public:
 	sf::Sprite sprite;
 	bool destroyable;
 	bool harmful;
-
+	int type; ///1-player, 2-wall, 3-bomb, 4-explosion, 5-boost
+	bool killed;
 	//Comp functions
-	void setTexture(sf::Texture& texture); 
+	void setTexture(sf::Texture& texture);
 	void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 	void createHitboxComponent(sf::Sprite& sprite, float offset_x, float offset_y, float width, float height);

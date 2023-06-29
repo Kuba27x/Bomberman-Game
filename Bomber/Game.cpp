@@ -38,8 +38,8 @@ void Game::initWindow()
 
 	this->fullscreen = fullscreen;
 	window_settings.antialiasingLevel = antialiasing_level;
-	if(this->fullscreen)
-		window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen ,window_settings); 
+	if (this->fullscreen)
+		window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, window_settings);
 	else
 		window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, window_settings);
 
@@ -52,7 +52,7 @@ void Game::initWindow()
 }
 
 void Game::initKeys()
-{	
+{
 	supportedKeys["Escape"] = sf::Keyboard::Key::Escape;
 	supportedKeys["A"] = sf::Keyboard::Key::A;
 	supportedKeys["D"] = sf::Keyboard::Key::D;
@@ -62,7 +62,7 @@ void Game::initKeys()
 
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(this->window , &this->supportedKeys, &this->states));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 //Con/Des 
@@ -92,7 +92,7 @@ void Game::endApplication()
 }
 
 void Game::updateDT()
-{	
+{
 	//Delta time (time to render one frame)
 	dt = dtClock.restart().asSeconds();
 }
@@ -150,6 +150,3 @@ void Game::run()
 		render();
 	}
 }
-
-
-

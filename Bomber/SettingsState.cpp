@@ -56,7 +56,7 @@ void SettingsState::initText()
 	optionsText.setFillColor(sf::Color(25, 25, 25, 200));
 
 	optionsText.setString(
-	"Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialiasing \n\n\n"
+		"Resolution \n\n\nFullscreen \n\n\nVsync \n\n\nAntialiasing \n\n\n"
 	);
 }
 
@@ -84,7 +84,7 @@ SettingsState::~SettingsState()
 	{
 		delete i2->second;
 	}
-	
+
 }
 
 //Accessors

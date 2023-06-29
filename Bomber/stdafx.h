@@ -30,4 +30,3 @@
 #include <SFML/Window.hpp>
 
 #endif // !HEADER_H
-

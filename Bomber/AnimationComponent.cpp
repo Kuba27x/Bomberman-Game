@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "AnimationComponent.h"
 
-AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet) 
+AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet)
 	: sprite(sprite), textureSheet(texture_sheet), lastAnimation(NULL)
 {
 
@@ -9,7 +9,7 @@ AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_
 
 AnimationComponent::~AnimationComponent()
 {
-	for(auto &i : this->animations)
+	for (auto& i : this->animations)
 	{
 		delete i.second;
 	}
@@ -27,7 +27,7 @@ void AnimationComponent::play(const std::string key, const float& dt)
 {
 	if (lastAnimation != animations[key])
 	{
-		if(lastAnimation == NULL)
+		if (lastAnimation == NULL)
 			lastAnimation = animations[key];
 		else
 		{

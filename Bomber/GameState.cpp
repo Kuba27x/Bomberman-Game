@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "GameState.h"
 
 void GameState::initTextures()
@@ -42,17 +42,39 @@ void GameState::initKeybinds()
 
 }
 
+void GameState::addCollisionObject(const sf::FloatRect& object, Entity* entity = nullptr)
+{
+	CollisionObject collisionObject;
+	collisionObject.rectangle = object;
+	collisionObject.entity = entity;
+	this->collisionObjects.push_back(collisionObject);
+}
+void GameState::removeCollisionObject(Entity* entity)
+{
+	for (auto it = collisionObjects.begin(); it != collisionObjects.end(); )
+	{
+		if (it->entity == entity)
+		{
+			it = collisionObjects.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
 void GameState::initPlayers()
 {
-	player = new Player(300, 300, textures["PLAYER_SHEET"]);
-	player2 = new Player(1555, 135, textures["PLAYER2_SHEET"]);
+	player = new Player(300, 300, textures["PLAYER_SHEET"], &collisionObjects);
+	player2 = new Player(1555, 135, textures["PLAYER2_SHEET"], &collisionObjects);
 }
+
 
 void GameState::addWall(float x, float y)
 {
 	Wall* new_wall = new Wall(x, y, textures["WALL_SHEET"]);
-	player->addCollisionObject(new_wall->getHitboxComponent()->getGlobalBounds(), new_wall);
-	player2->addCollisionObject(new_wall->getHitboxComponent()->getGlobalBounds(), new_wall);
+	this->addCollisionObject(new_wall->getHitboxComponent()->getGlobalBounds(), new_wall);
 	walls.push_back(new_wall);
 }
 
@@ -65,7 +87,7 @@ void GameState::initObstacles()
 	}
 
 	std::string line;
-	while (std::getline(file, line, '.')) 
+	while (std::getline(file, line, '.'))
 	{
 		std::istringstream iss(line);
 		float x, y;
@@ -82,7 +104,17 @@ void GameState::initObstacles()
 
 }
 
-
+std::vector<Wall*>::iterator GameState::removeWall(Wall* wall)
+{
+	auto it = std::find(walls.begin(), walls.end(), wall);
+	if (it != walls.end())
+	{
+		this->removeCollisionObject(wall);
+		delete wall;
+		it = walls.erase(it);
+	}
+	return it;
+}
 void GameState::addBomb(float x, float y, Player* owner)
 {
 	Bomb* new_bomb = new Bomb(x, y, 130, 130, textures["BOMB_SHEET"], owner);
@@ -101,8 +133,7 @@ std::vector<Bomb*>::iterator GameState::removeBomb(Bomb* bomb)
 		addExplosion(new_explosion1);
 		addExplosion(new_explosion2);
 
-		player->removeCollisionObject(bomb);
-		player2->removeCollisionObject(bomb);
+		this->removeCollisionObject(bomb);
 		delete bomb;
 		it = bombs.erase(it);
 	}
@@ -112,8 +143,7 @@ std::vector<Bomb*>::iterator GameState::removeBomb(Bomb* bomb)
 void GameState::addExplosion(Explosion* explosion)
 {
 	explosions.push_back(explosion);
-	player->addCollisionObject(explosion->getHitboxComponent()->getGlobalBounds(), explosion);
-	player2->addCollisionObject(explosion->getHitboxComponent()->getGlobalBounds(), explosion);
+	this->addCollisionObject(explosion->getHitboxComponent()->getGlobalBounds(), explosion);
 }
 
 std::vector<Explosion*>::iterator GameState::removeExplosion(Explosion* explosion)
@@ -121,8 +151,7 @@ std::vector<Explosion*>::iterator GameState::removeExplosion(Explosion* explosio
 	auto it = std::find(explosions.begin(), explosions.end(), explosion);
 	if (it != explosions.end())
 	{
-		player->removeCollisionObject(explosion);
-		player2->removeCollisionObject(explosion);
+		this->removeCollisionObject(explosion);
 		delete explosion;
 		it = explosions.erase(it);
 	}
@@ -190,7 +219,7 @@ void GameState::updatePlayerInput(const float& dt)
 
 	bool spaceIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 
-	if (spaceIsPressed && !spaceWasPressed && player->avaibleBombs > 0) 
+	if (spaceIsPressed && !spaceWasPressed && player->avaibleBombs > 0)
 	{
 		float bombX = player->sprite.getPosition().x;
 		float bombY = player->sprite.getPosition().y + 40;
@@ -210,7 +239,7 @@ void GameState::updatePlayerInput(const float& dt)
 		player2->move(0.f, 1.f, dt);
 
 	bool rightShiftIsPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::RShift);
-	if (rightShiftIsPressed && !rightShiftWasPressed && player2->avaibleBombs > 0) 
+	if (rightShiftIsPressed && !rightShiftWasPressed && player2->avaibleBombs > 0)
 	{
 		float bombX = player2->sprite.getPosition().x;
 		float bombY = player2->sprite.getPosition().y + 40;
@@ -237,7 +266,6 @@ void GameState::update(const float& dt)
 		updatePlayerInput(dt);
 		player->update(dt, window->getSize().x, window->getSize().y);
 		player2->update(dt, window->getSize().x, window->getSize().y);
-
 		for (auto it = explosions.begin(); it != explosions.end();)
 		{
 			(*it)->update(dt, window->getSize().x, window->getSize().y);
@@ -251,15 +279,25 @@ void GameState::update(const float& dt)
 			}
 		}
 
+		for (auto it = walls.begin(); it != walls.end();)
+		{
+			(*it)->update(dt, window->getSize().x, window->getSize().y);
+			if ((*it)->killed == true) {
+				it = removeWall(*it);
+			}
+			else {
+				++it;
+			}
+		}
+
 		for (auto it = bombs.begin(); it != bombs.end();)
 		{
 			(*it)->update(dt, window->getSize().x, window->getSize().y);
 			if ((*it)->freePass <= 0)
 			{
-				player->addCollisionObject((*it)->getHitboxComponent()->getGlobalBounds(), *it);
-				player2->addCollisionObject((*it)->getHitboxComponent()->getGlobalBounds(), *it);
+				this->addCollisionObject((*it)->getHitboxComponent()->getGlobalBounds(), *it);
 			}
-			if ((*it)->lifeTime <= 0)
+			if ((*it)->lifeTime <= 0 || (*it)->killed == true)
 			{
 				it = removeBomb(*it);
 			}
@@ -286,11 +324,11 @@ void GameState::render(sf::RenderTarget* target)
 	target->draw(floor);
 	player->render(*target);
 	player2->render(*target);
-	for (auto it = bombs.begin(); it != bombs.end(); ++it)
+	for (auto it = walls.begin(); it != walls.end(); ++it)
 	{
 		(*it)->render(*target);
 	}
-	for (auto it = walls.begin(); it != walls.end(); ++it)
+	for (auto it = bombs.begin(); it != bombs.end(); ++it)
 	{
 		(*it)->render(*target);
 	}

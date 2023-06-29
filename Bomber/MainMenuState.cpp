@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainMenuState.h"
+#include "ServerConnection.h"
 
 //Initializers
 void MainMenuState::initVariables()
@@ -53,7 +54,7 @@ void MainMenuState::initButtons()
 //Con/Des
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
-{	
+{
 	initVariables();
 	initBackground();
 	initFonts();
@@ -86,11 +87,15 @@ void MainMenuState::updateButtons()
 		i.second->update(mousePosView);
 	}
 
-	//New Game
+	// New Game
 	if (buttons["GAME_STATE"]->isPressed())
 	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+		// GameState on stack
+		this->states->push(new GameState(this->window, this->supportedKeys, this->states)); 
 	}
+
+
+
 
 	//Settings
 	if (buttons["SETTINGS_STATE"]->isPressed())
@@ -116,7 +121,7 @@ void MainMenuState::update(const float& dt)
 	updateMousePositions();
 	updateInput(dt);
 	updateButtons();
- 
+
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target)

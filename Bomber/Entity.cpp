@@ -5,14 +5,14 @@
 void Entity::initVariables()
 {
 	hitboxComponent = NULL;
-	movementComponent = NULL; 
+	movementComponent = NULL;
 	animationComponent = NULL;
 }
 
 Entity::Entity()
 {
 	initVariables();
-	
+
 }
 
 Entity::~Entity()
@@ -47,7 +47,7 @@ void Entity::createHitboxComponent(sf::Sprite& sprite, float offset_x, float off
 //Functions
 void Entity::setPosition(const float x, const float y)
 {
-	
+
 	sprite.setPosition(x, y);
 }
 
@@ -56,7 +56,7 @@ void Entity::move(const float dir_x, const float dir_y, const float& dt)
 	if (movementComponent)
 	{
 		movementComponent->move(dir_x, dir_y, dt); //Set velocity
-	
+
 	}
 }
 

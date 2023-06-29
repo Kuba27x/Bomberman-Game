@@ -13,8 +13,11 @@ void Player::initComponents()
 }
 
 //Con/des
-Player::Player(float x, float y, sf::Texture& texture_sheet)
+Player::Player(float x, float y, sf::Texture& texture_sheet, std::vector<CollisionObject>* collisionObjects)
 {
+    this->collisionObjects = collisionObjects;
+    type = 1;
+    killed = false;
     initVariables();
     setPosition(x, y);
     createHitboxComponent(sprite, 0.f, 0.f, 130.f, 170.f);
@@ -51,13 +54,15 @@ void Player::update(const float& dt, const float windowWidth, const float window
         setPosition(sprite.getPosition().x, windowHeight - sprite.getGlobalBounds().height);
 
     // Check collision
-    for (const CollisionObject& object : collisionObjects)
+    for (auto it = collisionObjects->begin(); it != collisionObjects->end(); ++it)
     {
+        CollisionObject& object = *it;
+
         if (checkCollisionWithObject(object))
         {
             sf::Vector2f push;
             sf::FloatRect intersection;
-            sprite.getGlobalBounds().intersects(object.rectangle, intersection); 
+            sprite.getGlobalBounds().intersects(object.rectangle, intersection);
 
             float intersectionWidth = intersection.width;
             float intersectionHeight = intersection.height;
@@ -77,10 +82,9 @@ void Player::update(const float& dt, const float windowWidth, const float window
                     push.x = -intersectionWidth;
             }
 
-            sprite.setPosition(lastPosition + push);//Back on collision
+            sprite.setPosition(lastPosition + push);
             movementComponent->stopVelocity(dt);
 
-            //If harmful obj, end game
             if (object.entity && object.entity->harmful)
             {
                 std::exit(0);
@@ -109,27 +113,4 @@ void Player::update(const float& dt, const float windowWidth, const float window
 bool Player::checkCollisionWithObject(const CollisionObject& object)
 {
     return hitboxComponent->checkIntersect(object.rectangle);
-}
-
-void Player::addCollisionObject(const sf::FloatRect& object, Entity* entity = nullptr)
-{
-    CollisionObject collisionObject;
-    collisionObject.rectangle = object;
-    collisionObject.entity = entity;
-    collisionObjects.push_back(collisionObject);
-}
-
-void Player::removeCollisionObject(Entity* entity)
-{
-    for (auto it = collisionObjects.begin(); it != collisionObjects.end(); )
-    {
-        if (it->entity == entity)
-        {
-            it = collisionObjects.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
 }
