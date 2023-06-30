@@ -5,7 +5,7 @@ void GameState::initTextures()
 {
 	textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Player_Spritesheet/Player_Animation_Sheet.png");
 	textures["PLAYER2_SHEET"].loadFromFile("Resources/Images/Player_Spritesheet/Player2_Animation_Sheet.png");
-	textures["WALL_SHEET"].loadFromFile("Resources/Images/Wall.png");
+	textures["WALL_SHEET"].loadFromFile("Resources/Images/SlimeWall-export.png");
 	textures["BOMB_SHEET"].loadFromFile("Resources/Images/Bomb-export.png");
 	textures["EXPLOSION_SHEET_VERTICAL"].loadFromFile("Resources/Images/Explosion_Vertical-export.png");
 	textures["EXPLOSION_SHEET_HORIZONTAL"].loadFromFile("Resources/Images/Explosion_Horizontal-export.png");
@@ -66,8 +66,8 @@ void GameState::removeCollisionObject(Entity* entity)
 
 void GameState::initPlayers()
 {
-	player = new Player(300, 300, textures["PLAYER_SHEET"], &collisionObjects);
-	player2 = new Player(1555, 135, textures["PLAYER2_SHEET"], &collisionObjects);
+	player = new Player(80, 100, textures["PLAYER_SHEET"], &collisionObjects);
+	player2 = new Player(2300, 1300, textures["PLAYER2_SHEET"], &collisionObjects);
 }
 
 
