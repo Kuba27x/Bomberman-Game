@@ -70,6 +70,10 @@ void GameState::initPlayers()
 	player2 = new Player(2300, 1300, textures["PLAYER2_SHEET"], &collisionObjects);
 }
 
+void GameState::initStates()
+{
+
+}
 
 void GameState::addWall(float x, float y)
 {
@@ -157,8 +161,6 @@ std::vector<Explosion*>::iterator GameState::removeExplosion(Explosion* explosio
 	}
 	return it;
 }
-
-
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
@@ -282,10 +284,12 @@ void GameState::update(const float& dt)
 		for (auto it = walls.begin(); it != walls.end();)
 		{
 			(*it)->update(dt, window->getSize().x, window->getSize().y);
-			if ((*it)->killed == true) {
+			if ((*it)->killed == true) 
+			{
 				it = removeWall(*it);
 			}
-			else {
+			else 
+			{
 				++it;
 			}
 		}
@@ -312,7 +316,6 @@ void GameState::update(const float& dt)
 	{
 		pmenu->update(mousePosView);
 		updatePauseMenuButtons();
-
 	}
 }
 

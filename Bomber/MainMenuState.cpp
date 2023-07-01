@@ -60,7 +60,6 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	initFonts();
 	initKeybinds();
 	initButtons();
-
 }
 
 MainMenuState::~MainMenuState()
@@ -94,9 +93,6 @@ void MainMenuState::updateButtons()
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states)); 
 	}
 
-
-
-
 	//Settings
 	if (buttons["SETTINGS_STATE"]->isPressed())
 	{
@@ -114,6 +110,7 @@ void MainMenuState::updateButtons()
 	{
 		endState();
 	}
+
 }
 
 void MainMenuState::update(const float& dt)
@@ -121,7 +118,6 @@ void MainMenuState::update(const float& dt)
 	updateMousePositions();
 	updateInput(dt);
 	updateButtons();
-
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target)

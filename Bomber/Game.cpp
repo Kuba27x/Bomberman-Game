@@ -109,7 +109,6 @@ void Game::updateSFMLEvents()
 void Game::update()
 {
 	updateSFMLEvents();
-
 	if (!states.empty())
 	{
 		states.top()->update(dt);

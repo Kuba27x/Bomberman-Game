@@ -5,6 +5,9 @@
 #include "PauseMenu.h"
 #include "Entity.h"
 #include "CollisionObject.h"
+#include "GameState.h"
+#include "MainMenuState.h"
+#include "Player.h"
 
 class GameState : public State
 {
@@ -30,9 +33,9 @@ private:
 	void initObstacles();
 	void initPauseMenu();
 	void initPlayers();
+	void initStates();
 
 public:
-
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~GameState();
 	std::vector<CollisionObject> collisionObjects;
@@ -43,18 +46,15 @@ public:
 	void updatePauseMenuButtons();
 	void update(const float& dt);
 	void render(sf::RenderTarget* target = nullptr);
-	void endGame();
-
+	void endGame();	
 	void addCollisionObject(const sf::FloatRect& object, Entity* entity);
 	void removeCollisionObject(Entity* entity);
-
 	void addBomb(float x, float y, Player* owner);
 	std::vector<Bomb*>::iterator removeBomb(Bomb* bomb);
 	void addWall(float x, float y);
 	std::vector<Wall*>::iterator removeWall(Wall* wall);
 	void addExplosion(Explosion* explosion);
 	std::vector<Explosion*>::iterator removeExplosion(Explosion* explosion);
-
 
 };
 

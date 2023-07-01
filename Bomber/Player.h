@@ -4,11 +4,16 @@
 #include "Entity.h"
 #include "CollisionObject.h"
 
-
 class Player : public Entity
 {
 private:
     //Variables
+    sf::RenderWindow* window;
+    sf::Event event;
+    sf::Texture bgTexture;
+    sf::RectangleShape background;
+    sf::Font font;
+    sf::Text text;
 
     //Init functions
     void initVariables();
@@ -24,8 +29,8 @@ public:
     //Functions
     void update(const float& dt, const float windowWidth, const float windowHeight);
     bool checkCollisionWithObject(const CollisionObject& object);
-
-
+    void renderText(sf::RenderTarget& target);
+    void renderBg(sf::RenderTarget* target);
 };
 
 #endif

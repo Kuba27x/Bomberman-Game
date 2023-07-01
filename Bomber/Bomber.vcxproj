@@ -163,6 +163,7 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bomber.cpp" />
     <ClCompile Include="CollisionObject.cpp" />
+    <ClCompile Include="EndGameState.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="CollisionObject.h" />
+    <ClInclude Include="EndGameState.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="EditorState.h" />
     <ClInclude Include="Entity.h" />

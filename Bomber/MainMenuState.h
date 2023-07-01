@@ -8,7 +8,7 @@
 #include "PreGameState.h"
 #include "Gui.h"
 #include "ServerConnection.h"
-
+#include "EndGameState.h"
 
 class MainMenuState : public State
 {
@@ -28,7 +28,6 @@ private:
 	void initButtons();
 
 public:
-
 	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~MainMenuState();
 

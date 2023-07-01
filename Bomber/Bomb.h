@@ -37,7 +37,4 @@ public:
 	void update(const float& dt, const float windowWidth, const float windowHeight) override;
 	bool checkCollisionWithObject(const CollisionObject& object);
 };
-
-
-
 #endif

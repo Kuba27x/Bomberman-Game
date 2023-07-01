@@ -32,7 +32,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet, std::vector<Collisi
 
 Player::~Player()
 {
-
+    delete window;
 }
 
 //Functions
@@ -87,13 +87,40 @@ void Player::update(const float& dt, const float windowWidth, const float window
 
             if (object.entity && object.entity->harmful)
             {
-                std::exit(0);
+                window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "GAME OVER", sf::Style::Titlebar | sf::Style::Close);
+                window->clear();
+                background.setSize(sf::Vector2f(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
+                bgTexture.loadFromFile("Resources/Images/Bbackground.png");
+                background.setTexture(&bgTexture);
+                renderBg(window);
+                if (!font.loadFromFile("Fonts/Brant.ttf"))
+                {
+                    throw("ERROR::MAINMENUSTATE::COULD NOT LOAD THE FONT!!!");
+                }
+                text.setFont(font);
+                text.setPosition(sf::Vector2f(500.f, 400.f));
+                text.setCharacterSize(200);
+                text.setFillColor(sf::Color::White);
+                text.setString(
+                    "GAME OVER\nPRESS ESCAPE\nTO QUIT");
+                renderText(*window);
+                window->display();
+                while (true)
+                {
+                    window->pollEvent(event);
+                    if (event.type == sf::Event::Closed)
+                        std::exit(0);
+
+                    else if (event.type == sf::Event::KeyPressed)
+                        if (event.key.code == sf::Keyboard::Escape)
+                            std::exit(0);
+                }
+                break;
             }
 
             break;
         }
     }
-
 
     if (movementComponent->getState(IDLE))
         animationComponent->play("IDLE", dt);
@@ -109,8 +136,17 @@ void Player::update(const float& dt, const float windowWidth, const float window
     hitboxComponent->update();
 }
 
-
 bool Player::checkCollisionWithObject(const CollisionObject& object)
 {
     return hitboxComponent->checkIntersect(object.rectangle);
+}
+
+void Player::renderText(sf::RenderTarget& target)
+{
+    target.draw(this->text);
+}
+
+void Player::renderBg(sf::RenderTarget* target)
+{
+    target->draw(this->background);
 }
