@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ServerConnection.h"
 
-//Online aspect left for now todo later 
+//Online part left for now, todo later 
 
 using namespace std;
 
@@ -20,7 +20,7 @@ void readFromServer(sf::TcpSocket* socket) {
     }
     catch (std::exception& e) 
     {
-        cerr << "Blad podczas odczytu z serwera: " << e.what() << std::endl;
+        cerr << "Error: " << e.what() << std::endl;
     }
 }
 
@@ -35,13 +35,13 @@ void writeToServer(sf::TcpSocket* socket) {
             }
 
             if (socket->send(message.c_str(), message.size() + 1) != sf::Socket::Done) {
-                cerr << "Blad podczas wysylania wiadomosci" << std::endl;
+                cerr << "Error sending a message" << std::endl;
                 break;
             }
         }
     }
     catch (std::exception& e) {
-        cerr << "Blad podczas wysylania wiadomosci: " << e.what() << std::endl;
+        cerr << "Error sending a message: " << e.what() << std::endl;
     }
 }
 
@@ -55,26 +55,26 @@ void startClient(sf::TcpSocket* socket) {
 
 int ConnectWithServer() {
     try {
-        cout << "Bombit - test komunikacji v2" << endl;
+        cout << "Bomber - communication test v2" << endl;
 
         sf::TcpSocket socket;
         sf::IpAddress serverAddress;
         unsigned short serverPort;
 
-        cout << "Podaj adres serwera: ";
+        cout << "Server adress: ";
         cin >> serverAddress;
-        cout << "Podaj numer portu: ";
+        cout << "Port number: ";
         cin >> serverPort;
 
         if (socket.connect(serverAddress, serverPort) != sf::Socket::Done) {
-            cerr << "Nie udalo sie polaczyc z serwerem" << endl;
+            cerr << "COULDNT CONNECT" << endl;
             return 1;
         }
 
         startClient(&socket);
     }
     catch (std::exception& e) {
-        cerr << "Blad: " << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
     }
 
     return 0;

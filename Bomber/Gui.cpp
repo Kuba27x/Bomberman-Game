@@ -140,8 +140,6 @@ void gui::Button::render(sf::RenderTarget& target)
 gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index)
 	: font(font), showList(false), keyTimeMax(1.f), keyTime(0.f)
 {
-	//unsigned nrOfElements = sizeof(list) / sizeof(std::string);
-
 	activeElement = new gui::Button(x, y, width, height, &this->font, list[default_index], 60,
 		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(25, 25, 25, 50),
 		sf::Color(80, 80, 80, 200), sf::Color(160, 160, 160, 200), sf::Color(25, 25, 25, 200),
@@ -190,7 +188,6 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt)
 {
 	updateKeyTime(dt);
 	activeElement->update(mousePos);
-
 
 	//Show, hide list
 	if (activeElement->isPressed() && getKeyTime())
@@ -253,7 +250,7 @@ gui::TextField::TextField(float x, float y, float width, float height, sf::Font*
 
 gui::TextField::~TextField()
 {
-	//...
+	
 }
 
 //Accessors

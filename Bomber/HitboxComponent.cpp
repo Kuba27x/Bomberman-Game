@@ -8,7 +8,7 @@ HitboxComponent::HitboxComponent(sf::Sprite& sprite, float offset_x, float offse
 	hitbox.setSize(sf::Vector2f(width, height));
 	hitbox.setFillColor(sf::Color::Transparent);
 	hitbox.setOutlineThickness(1.f);
-	hitbox.setOutlineColor(sf::Color::Green); //Set to transparent to make it invisible
+	hitbox.setOutlineColor(sf::Color::Transparent); //Set to color to make it visible
 }
 
 HitboxComponent::~HitboxComponent()

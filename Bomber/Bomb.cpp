@@ -2,7 +2,6 @@
 #include "Bomb.h"
 #include "Player.h"
 
-
 void Bomb::initVariables()
 {
     freePass = 200;
@@ -20,13 +19,10 @@ Bomb::Bomb(float x, float y, float hitbox_width, float hitbox_height, sf::Textur
     setPosition(x, y);
     bombOwner = owner;
     createHitboxComponent(sprite, 0.f, 0.f, hitbox_width, hitbox_height);
-    //createMovementComponent(300.f, 15.f, 5.f);
     createAnimationComponent(texture_sheet);
     animationComponent->addAnimation("IDLE", 11.f, 0, 0, 2, 0, hitbox_width, hitbox_height);
     isIncrementingOwner = true;
 }
-
-
 
 Bomb::~Bomb()
 {
@@ -54,7 +50,6 @@ void Bomb::update(const float& dt, const float windowWidth, const float windowHe
     hitboxComponent->update();
 }
 
-
 Explosion::Explosion(float x, float y, float width, float height, sf::Texture& texture_sheet, Player* owner, int lifeTime, int orientation)
     : Bomb(x, y, width, height, texture_sheet, owner)
 {
@@ -68,7 +63,6 @@ Explosion::Explosion(float x, float y, float width, float height, sf::Texture& t
         createHitboxComponent(sprite, 0.f, 0.f, width, height);
     }
 }
-
 
 void Explosion::update(const float& dt, const float windowWidth, const float windowHeight)
 {

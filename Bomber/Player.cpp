@@ -36,7 +36,6 @@ Player::~Player()
 }
 
 //Functions
-
 void Player::update(const float& dt, const float windowWidth, const float windowHeight)
 {
     // Update movement component, check borders
@@ -85,6 +84,7 @@ void Player::update(const float& dt, const float windowWidth, const float window
             sprite.setPosition(lastPosition + push);
             movementComponent->stopVelocity(dt);
 
+            //End game condition
             if (object.entity && object.entity->harmful)
             {
                 window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "GAME OVER", sf::Style::Titlebar | sf::Style::Close);
@@ -109,15 +109,19 @@ void Player::update(const float& dt, const float windowWidth, const float window
                 {
                     window->pollEvent(event);
                     if (event.type == sf::Event::Closed)
+                    {
                         std::exit(0);
-
+                        break;
+                    }
                     else if (event.type == sf::Event::KeyPressed)
                         if (event.key.code == sf::Keyboard::Escape)
+                        {
                             std::exit(0);
+                            break;
+                        }
                 }
                 break;
             }
-
             break;
         }
     }

@@ -71,7 +71,6 @@ MainMenuState::~MainMenuState()
 	}
 }
 
-
 //Functions
 void MainMenuState::updateInput(const float& dt)
 {

@@ -12,7 +12,6 @@ void Entity::initVariables()
 Entity::Entity()
 {
 	initVariables();
-
 }
 
 Entity::~Entity()
@@ -43,11 +42,9 @@ void Entity::createHitboxComponent(sf::Sprite& sprite, float offset_x, float off
 	hitboxComponent = new HitboxComponent(sprite, offset_x, offset_y, width, height);
 }
 
-
 //Functions
 void Entity::setPosition(const float x, const float y)
 {
-
 	sprite.setPosition(x, y);
 }
 

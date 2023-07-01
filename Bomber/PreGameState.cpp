@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "PreGameState.h"
 
+//todo later
+
 void PreGameState::initVariables()
 {
 	modes = sf::VideoMode::getFullscreenModes();
@@ -56,7 +58,6 @@ void PreGameState::initGui()
 	serverAddressField->wasPressedLastFrame = false;
 	serverPortField->wasPressedLastFrame = false;
 
-
 }
 
 void PreGameState::initText()
@@ -70,8 +71,6 @@ void PreGameState::initText()
 		"Adress \n\n\nPort number \n\n\n"
 	);
 }
-
-
 
 PreGameState::PreGameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
@@ -96,7 +95,6 @@ PreGameState::~PreGameState()
 }
 
 //Accessors
-
 
 //Functions
 void PreGameState::updateInput(const float& dt)
@@ -127,8 +125,6 @@ void PreGameState::updateInput(const float& dt)
 		}
 	}
 }
-
-
 
 void PreGameState::updateGui(const float& dt)
 {

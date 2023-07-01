@@ -10,7 +10,6 @@ PauseMenu::PauseMenu(sf::RenderWindow& window, sf::Font& font) : font(font)
 	container.setFillColor(sf::Color(20, 20, 20, 200));
 	container.setPosition(static_cast<float>(window.getSize().x) / 2.f - container.getSize().x / 2.f, 30.f);
 
-
 	//Init text
 	menuText.setFont(font);
 	menuText.setFillColor(sf::Color(255, 255, 255, 150));

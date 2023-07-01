@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "EditorState.h"
 
+//todo later
+
 void EditorState::initVariables()
 {
 

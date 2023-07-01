@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Player.h"
 
-
 class Bomb : public Entity
 {
 private:
@@ -28,7 +27,6 @@ public:
 	//Functions
 	virtual void update(const float& dt, const float windowWidth, const float windowHeight);
 };
-
 
 class Explosion : public Bomb
 {
