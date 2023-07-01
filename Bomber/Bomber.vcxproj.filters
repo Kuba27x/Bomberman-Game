@@ -91,7 +91,7 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="EndGameState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +156,7 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="EndGameState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

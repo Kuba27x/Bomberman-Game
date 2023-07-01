@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "EndGameState.h"
 
+//no use for now
+
 void EndGameState::initVariables()
 {
 	modes = sf::VideoMode::getFullscreenModes();
